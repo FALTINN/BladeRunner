@@ -8,40 +8,57 @@
 
 task main()
 {
-	int threshold = 50;
+	int T1 = 0;
+	int threshold = 20;
+	bool flag = true;
 	while(true){
+		flag = true;
+
 		if(getColorReflected(S2) < threshold){
 			if(getColorReflected(S3) < threshold){
-				motor[motorB] = 60;
-				motor[motorC] = 60;
+					resetTimer(T1);
+				while(getTimer(T1, milliseconds) < 250){
+					motor[motorB] = 50;
+					motor[motorC] = 50;
+			}
 			}
 			else{
 				motor[motorB] = 0;
-				motor[motorC] = 50;
+				motor[motorC] = 60;
 			}
 		}
 		if(getColorReflected(S3) < threshold){
 			if(getColorReflected(S2) < threshold){
-				motor[motorB] = 60;
-				motor[motorC] = 60;
+					resetTimer(T1);
+				while(getTimer(T1, milliseconds) < 250){
+					motor[motorB] = 50;
+					motor[motorC] = 50;
+			}
 			}
 			else{
 				motor[motorC] = 0;
-				motor[motorB] = 50;
+				motor[motorB] = 60;
 			}
 		}
 		if(getColorReflected(S1) < threshold){
-			motor[motorB] = -50;
-			motor[motorC] = 100;
+			flag = false;
+			resetTimer(T1);
+			while(getTimer(T1, milliseconds) < 150){
+				motor[motorB] = -50;
+				motor[motorC] = 50;
+			}
 		}
-		if(getColorReflected(S1) < threshold){
-			motor[motorC] = -50;
-			motor[motorB] = 100;
+		if(getColorReflected(S4) < threshold){
+			flag = false;
+			resetTimer(T1);
+			while(getTimer(T1, milliseconds) < 150){
+				motor[motorC] = -50;
+				motor[motorB] = 50;
+			}
 		}
-
-		else{
-			motor[motorB] = 60;
-			motor[motorC] = 60;
-		}
+		if(flag){
+			motor[motorB] = 50;
+			motor[motorC] = 50;
+	}
 	}
 }
